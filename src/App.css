@@ -36,3 +36,116 @@
     transform: rotate(360deg);
   }
 }
+
+.connectbutton {
+  background: #00000010;
+  box-shadow: 0px 1px 10px #ffffff;
+  border-inline-color: none;
+  color: #ffffff;
+  border-radius: 14px;
+  padding: 12px;
+  font-size: large;
+  font-weight: 500;
+}
+
+.navbarfont {
+  font-family: "Poppins";
+  font-weight: medium;
+}
+
+.nftminter {
+    background: radial-gradient(circle at 50% 50%, #090f11, #0c1519, #101e2b, #0f223c, #0e2144);
+    font-family: "Poppins";
+      font-weight: medium;
+    color: white;
+    box-shadow: 0 0 1px 1px #17b2ff;
+    -webkit-border-radius: 20px !important;
+    -moz-border-radius: 20px !important;
+    border-radius: 20px !important;
+    -webkit-border: 20px !important;
+    -moz-border: 20px !important;
+    border: 20px !important;
+}
+
+.nftapp {
+  background: radial-gradient(circle at 50% 50%, #5e99ac, #508aa3, #35678f, #1f457a, #173771);
+}
+
+.nftstaker {
+  background: radial-gradient(circle at 50% 50%, #090f11, #0c1519, #101e2b, #0f223c, #0e2144);
+  font-family: "Poppins";
+    font-weight: medium;
+  color: white;
+  box-shadow: 0 0 1px 1px #17b2ff;
+  -webkit-border-radius: 20px !important;
+  -moz-border-radius: 20px !important;
+  border-radius: 20px !important;
+  -webkit-border: 20px !important;
+  -moz-border: 20px !important;
+  border: 20px !important;
+}
+
+.stakingrewards {
+  font-family: "Poppins";
+  font-weight: medium;
+  box-shadow: 1px 1px 15px #ffffff;
+  background: radial-gradient(circle at 50% 50%, #000000, #050604, #0a0c08, #0f130b, #14190f, #191f13, #1e2517, #232b1b, #28321e, #2d3822, #323e26);
+}
+
+.modal-style1 {
+  background: radial-gradient(circle at 50% 50%, #090f11, #0c1519, #101e2b, #0f223c, #0e2144);
+  font-family: "Poppins";
+  font-weight: medium;
+  color: white;
+  box-shadow: 0 0 1px 1px #17b2ff;
+  -webkit-border-radius: 20px !important;
+  -moz-border-radius: 20px !important;
+  border-radius: 20px !important;
+  -webkit-border: 20px !important;
+  -moz-border: 20px !important;
+  border: 20px !important;
+}
+
+.container-style {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  justify-items: stretch;
+  align-items: stretch
+}
+
+@keyframes glow2 {
+  from {
+    box-shadow: 0 0 4px -1px #f4dc76;
+  }
+  to {
+    box-shadow: 0 0 10px 7px #ffb300;
+  }
+}
+
+.stakegoldeffect {
+    font-family: "Poppins";
+    font-weight: 300;
+    animation: glow2 3s infinite alternate;
+    background: linear-gradient(
+      to bottom,
+      rgb(1, 53, 130),
+      rgba(255, 0, 0, 0)
+    )
+}
+
+.errorsearch {
+  background: black;
+}
+
+.nft-card {
+  background-image: linear-gradient(125.83deg, rgb(30, 42, 34) 0%, rgb(17, 3, 141) 80.09%);
+  font-family: "SF Pro Display";
+  color: white;
+  box-shadow: 1px 1px 15px #000000;
+}
+
+.navbarglow {
+  box-shadow: 0px 8px 10px #17b2ff;
+}
