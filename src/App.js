@@ -3,19 +3,19 @@ import { Button, ButtonGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { Component } from "react";
 import axios from "axios";
+import abi from "./ABI.json";
+import vaultABI from "./vaultABI.json";
+import tokenABI from "./tokenABI.json";
+import {NFTCONTRACT, STAKINGCONTRACT, nftpng, polygonscanapi, moralisapi} from "./config";
+
 
 let account = null;
 let contract = null;
 let vaultcontract = null;
 let web3 = null;
 
-const NFTCONTRACT = "0xC6Ad2824B03275D4cC5E8f4f61c5a143b999717b";
-const STAKINGCONTRACT = "0x09aE75315fE2E63271B4F218C4b00F4fF143052A";
 const polygonscanapikey = "DBQX5JUSAVUZRK8CC4IN2UZF9N2HA63P4U";
-const polygonscanapi = "https://api-testnet.polygonscan.com/api";
-const moralisapi = "https://deep-index.moralis.io/api/v2/";
 const moralisapikey = "2VBV4vaCLiuGu6Vu7epXKlFItGe3jSPON8WV4CrXKYaNBEazEUrf1xwHxbrIo1oM";
-const nftpng = "https://ipfs.io/ipfs/QmavM8Zpo9bD3r4zEnhbbBLLvHyfr1YL7f1faG3ovaeSSG/";
 
 class App extends Component {
   constructor() {
