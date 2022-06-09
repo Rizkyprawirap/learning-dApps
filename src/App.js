@@ -7,7 +7,10 @@ import abi from "./ABI.json";
 import vaultABI from "./vaultABI.json";
 import tokenABI from "./tokenABI.json";
 import {NFTCONTRACT, STAKINGCONTRACT, nftpng, polygonscanapi, moralisapi} from "./config";
-
+import Web3Modal from "web3modal";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import WalletLink from "walletlink";
+import Web3 from "web3";
 
 let account = null;
 let contract = null;
@@ -16,6 +19,36 @@ let web3 = null;
 
 const polygonscanapikey = "DBQX5JUSAVUZRK8CC4IN2UZF9N2HA63P4U";
 const moralisapikey = "2VBV4vaCLiuGu6Vu7epXKlFItGe3jSPON8WV4CrXKYaNBEazEUrf1xwHxbrIo1oM";
+
+const providerOptions = {
+  binancechainwallet: {
+    package: true,
+  },
+  walletconnect: {
+    package: WalletConnectProvider,
+    options: {
+      infuraId: process.env.INFURA_ID,
+    },
+  },
+  walletlink: {
+    package: WalletLink,
+    options: {
+      appName: "Net2Dev NFT Minter",
+      infuraId: process.env.INFURA_ID,
+      rpc: "",
+      chainId: 4,
+      appLogoUrl: null,
+      darkMode: true,
+    },
+  },
+};
+
+const web3Modal = new Web3Modal({
+	network: "rinkeby",
+	theme: "dark",
+	cacheProvider: true,
+	providerOptions 
+});
 
 class App extends Component {
   constructor() {
@@ -56,6 +89,64 @@ class App extends Component {
     const { balance } = this.state;
     const { nftdata } = this.state;
     const { outvalue } = this.state;
+
+    const sleep = (milliseconds) => {
+      return new Promise((resolve) => setTimeout(resolve, milliseconds));
+    };
+
+    async function connectwallet() { 
+      var provider = await web3Modal.connect();
+      web3 = new Web3(provider);
+      await provider.send('eth_requestAccounts');
+      var accounts = await web3.eth.getAccounts();
+      account = accounts[0];
+      document.getElementById('wallet-address').textContent = account;
+      contract = new web3.eth.Contract(abi, NFTCONTRACT)
+
+      vaultcontract = new web3.eth.Contract(vaultABI, STAKINGCONTRACT);
+      var getStackedNft = await vaultcontract.methods.tokenOfOwner(account).call();
+      document.getElementById('yournfts').textContent = getStackedNft;
+      
+      var getbalance = Number(await vaultcontract.methods.balanceOf(account).call());
+      document.getElementById('stakedbalance').textContent = getbalance;
+
+      const arraynft = Array.from(getStackedNft.map(Number));
+      const tokenid = arraynft.filter(Number);
+      var rwdArray = [];
+
+      tokenid.forEach(async (id) => {
+        var rawearn = await vaultcontract.methods.earningInfo(account, [id]).call();
+        var array = Array.from(rawearn.map(Number));
+        console.log(array);
+        array.forEach(async (item) => {
+          var earned = String(item).split(",")[0];
+          var earnedrwd = Web3.utils.fromWei(earned);
+          var rewardx = Number(earnedrwd).toFixed(2);
+          var numrwd = Number(rewardx);
+          console.log(numrwd);
+          rwdArray.push(numrwd);
+        });
+      });
+
+      function delay() {
+        return new Promise((resolve) => setTimeout(resolve, 300));
+      }
+
+      async function delayedLog(item) {
+        await delay();
+        var sum = item.reduce((a, b) => a + b, 0);
+        var formatsum = Number(sum).toFixed(2);
+        document.getElementById("earned").textContent = formatsum;
+      }
+
+      async function processArray(rwdArray) {
+        for (const item of rwdArray) {
+          await delayedLog(item);
+        }
+      }
+
+      return processArray([rwdArray]);
+    }
     
     return (
       <div className="App nftapp">
@@ -99,6 +190,7 @@ class App extends Component {
               className="connectbutton"
               style={{ fontFamily: "Poppins" }}
               value="Connect Your Wallet"
+              onClick={connectwallet}
             />
           </div>
         </nav>
